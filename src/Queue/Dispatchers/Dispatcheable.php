@@ -11,13 +11,15 @@ namespace XYLibrary\Queue\Dispatchers;
 
 trait Dispatcheable
 {
+    public $tries;
+
+    public $timeout;
+
     public $queue;
 
     public $delay;
 
     public $chained;
-
-
 
     public function onQueue($queue){
         $this->queue = $queue;
@@ -38,7 +40,6 @@ trait Dispatcheable
         $this->chained = serialize($chain);//序列化下游任务
         return $this;
     }
-
 
     /**
      * 分发任务链上的任务

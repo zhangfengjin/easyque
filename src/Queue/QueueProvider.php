@@ -56,17 +56,19 @@ class QueueProvider
     }
 
     protected function registerRedis(){
-        singleton("redis",$this->getRedis());
+        $name = $this->config['default'];
+        $driver = $this->config['driver'][$name];
+        singleton("redis",$this->getRedis($driver));
     }
 
     /**
      * 获取redis具体操作连接
      * @return Client
      */
-    private function getRedis(){
-        switch($this->driver['client']){
+    private function getRedis($driver){
+        switch($driver['client']){
             case "predis":
-                return $this->getPRedisConnection();
+                return $this->getPRedisConnection($driver);
                 break;
             case "":
                 break;
@@ -77,9 +79,11 @@ class QueueProvider
      * 获取PRedis连接实例
      * @return Client
      */
-    private function getPRedisConnection(){
-        $parameters = $this->driver['default'];
-        $options = array_merge(["timeout"=>10.0],$parameters["options"]);
+    private function getPRedisConnection($driver){
+        $parameters = $driver['default'];
+        $options = isset($parameters["options"])? $parameters["options"] : [];
+        $options = array_merge(["timeout"=>10.0],$options);
+        unset($parameters["options"]);
         return new Client($parameters,$options);
     }
 

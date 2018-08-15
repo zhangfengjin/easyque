@@ -16,7 +16,7 @@ return [
         ]
     ],
 
-    "dirver" => [
+    "driver" => [
         "redis" => [
             'client' => 'predis',
             'default' => [
@@ -24,6 +24,9 @@ return [
                 'password' => null,
                 'port' => 6379,
                 'database' => 0,
+                'options' => [
+                    'timeout' => 20
+                ]
             ],
         ],
         "mysql" => [

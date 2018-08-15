@@ -43,7 +43,7 @@ class QueueManager
      * @return mixed
      */
     protected function resolve($driver){
-        $config = app('config')["dirver"][$driver];
+        $config = app('config')["driver"][$driver];
         $connect = call_user_func($this->connectors[$driver]);
         return $connect->connect($config);
     }

@@ -15,17 +15,26 @@ class Dispatcher
     {
     }
 
-    public function dispatch($command){
+    /**
+     * 分发
+     * @param $job
+     */
+    public function dispatch($job){
         $manager = call_user_func(app('manager'));
         $queue = $manager->connection();
-        $this->dispatchToQueue($command,$queue);
+        $this->dispatchToQueue($job,$queue);
     }
 
-    public function dispatchToQueue($command,$queue){
-        if(isset($command->delay)){
-            $queue->pushOn();
+    /**
+     * 分发到队列
+     * @param $job
+     * @param $queue
+     */
+    public function dispatchToQueue($job,$queue){
+        if(isset($job->delay)){//延迟任务
+            $queue->laterOn($job->queue,$job->delay,$job);
         }else{
-            $queue->laterOn();
+            $queue->pushOn($job->queue,$job);
         }
     }
 
