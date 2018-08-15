@@ -9,7 +9,33 @@
 namespace XYLibrary\Queue\Jobs;
 
 
-class RedisJob
+use XYLibrary\Queue\Drivers\RedisQueue;
+
+class RedisJob extends Job
 {
+    protected $queue;
+    protected $job;
+    protected $reserved;
+    protected $queueName;
+
+    public function __construct(RedisQueue $queue, $job, $reserved, $queueName)
+    {
+        $this->queue = $queue;
+        $this->job = $job;
+        $this->reserved = $reserved;
+        $this->queueName = $queueName;
+    }
+
+    public function getRawBody(){
+        return $this->job;
+    }
+
+    public function deleteReserved(){
+        $this->queue->deleteReserved($this->queueName,$this->reserved);
+    }
+
+    public function getReservedJob(){
+        return $this->reserved;
+    }
 
 }

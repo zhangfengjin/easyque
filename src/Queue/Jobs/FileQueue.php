@@ -9,7 +9,6 @@
 namespace XYLibrary\Queue\Jobs;
 
 
-class FileQueue
+class FileQueue extends Job
 {
-
 }

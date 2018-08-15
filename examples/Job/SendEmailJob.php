@@ -13,4 +13,15 @@ use XYLibrary\Queue\Job;
 
 class SendEmailJob extends Job
 {
+    public function beforeJob(){
+        echo "beforeJob";
+    }
+
+    public function run(){
+        echo "exec sendemail job";
+    }
+
+    public function afterJob(){
+        echo "afterJob";
+    }
 }

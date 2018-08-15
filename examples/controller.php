@@ -5,9 +5,9 @@ use Examples\Job\SendEmailJob;
 
 //调用
 $args = "buss job args";
-//SendEmailJob::dispatch($args)->onQueue("sendemail");
+SendEmailJob::dispatch($args)->onQueue("sendemail");
 
-SendEmailJob::withChain([
+/*SendEmailJob::withChain([
         new SendEmailJob(),
         new SendEmailJob()
-])->dispatch($args)->onQueue("emailchain")->delay(10);
+])->dispatch($args)->onQueue("emailchain");*/

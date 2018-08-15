@@ -46,6 +46,7 @@ class Queue
             'maxTries' => $job->tries? $job->tries : null,
             'timeout' => $job->timeout? $job->timeout : null,
             //'timeoutAt' => $this->getJobExpiration($job),
+            'attempts' => 0,
             'data' => [
                 'commandName' => get_class($job),
                 'command' => serialize(clone $job),

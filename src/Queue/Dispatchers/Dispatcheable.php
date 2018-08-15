@@ -11,6 +11,8 @@ namespace XYLibrary\Queue\Dispatchers;
 
 trait Dispatcheable
 {
+    public $retryDelay;//失败后延迟多久再次执行 默认1s
+
     public $tries;
 
     public $timeout;
